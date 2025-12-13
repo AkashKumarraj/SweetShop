@@ -1,0 +1,22 @@
+.register-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.register-container input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.register-container button {
+  width: 100%;
+  padding: 8px;
+  background-color: green;
+  color: white;
+  border: none;
+}
