@@ -222,7 +222,7 @@
 }
 
 .purchase-button {
-  width: 100%;
+  width: calc(100% - 48px);
   padding: 14px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -233,7 +233,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  margin: 0 24px 24px 24px;
+  margin: 0 auto 24px auto;
+  display: block;
+  text-align: center;
 }
 
 .purchase-button:hover:not(:disabled) {
