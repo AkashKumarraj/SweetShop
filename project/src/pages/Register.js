@@ -1,25 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import "./Register.css";
 import { useNavigate, Link } from "react-router-dom";
-import api from "../api/api";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleRegister = async () => {
-    try {
-      await api.post("/auth/register", {
-        username,
-        password,
-      });
-      navigate("/");
-    } catch (err) {
-      alert("Registration failed. Username might already exist.");
-    }
+  const handleRegister = () => {
+    // mock register success
+    navigate("/");
   };
 
   return (
@@ -37,8 +26,6 @@ function Register() {
               id="username"
               type="text"
               placeholder="Choose a username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           
@@ -48,8 +35,6 @@ function Register() {
               id="password"
               type="password"
               placeholder="Create a password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           

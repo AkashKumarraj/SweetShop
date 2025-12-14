@@ -115,7 +115,7 @@
 
 .table-header {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 2fr;
+  grid-template-columns: 100px 2fr 1.5fr 1fr 1fr 1fr 2fr;
   gap: 16px;
   padding: 16px;
   background: #f7fafc;
@@ -130,7 +130,7 @@
 
 .table-row {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 2fr;
+  grid-template-columns: 100px 2fr 1.5fr 1fr 1fr 1fr 2fr;
   gap: 16px;
   padding: 20px 16px;
   background: white;
@@ -149,6 +149,23 @@
 .table-cell {
   font-size: 15px;
   color: #2d3748;
+}
+
+.table-image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f7fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .category-badge {
@@ -242,8 +259,13 @@
 @media (max-width: 1024px) {
   .table-header,
   .table-row {
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1.5fr;
+    grid-template-columns: 80px 1.5fr 1fr 1fr 1fr 1fr 1.5fr;
     font-size: 13px;
+  }
+  
+  .table-image-container {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -287,14 +309,6 @@
   
   .table-cell:last-child {
     border-bottom: none;
-  }
-  
-  .table-cell::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #718096;
-    text-transform: uppercase;
-    font-size: 12px;
   }
   
   .actions-cell {

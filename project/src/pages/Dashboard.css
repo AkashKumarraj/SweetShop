@@ -23,7 +23,79 @@
 .dashboard-header p {
   font-size: 18px;
   color: #718096;
-  margin: 0;
+  margin: 0 0 20px 0;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  font-size: 16px;
+  color: #4a5568;
+}
+
+.stat-item strong {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.filters-section {
+  max-width: 1200px;
+  margin: 0 auto 32px auto;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.category-filter {
+  min-width: 150px;
+}
+
+.category-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .sweets-grid {
@@ -37,12 +109,13 @@
 .sweet-card {
   background: white;
   border-radius: 16px;
-  padding: 24px;
+  padding: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(102, 126, 234, 0.1);
+  overflow: hidden;
 }
 
 .sweet-card:hover {
@@ -50,12 +123,48 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
+.sweet-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  background: #f7fafc;
+}
+
+.sweet-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.sweet-card:hover .sweet-image {
+  transform: scale(1.05);
+}
+
+.out-of-stock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 .sweet-card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 20px;
-  padding-bottom: 16px;
+  padding: 20px 24px 0;
   border-bottom: 2px solid #f7fafc;
 }
 
@@ -81,6 +190,7 @@
 .sweet-card-body {
   flex: 1;
   margin-bottom: 20px;
+  padding: 0 24px;
 }
 
 .sweet-info {
@@ -123,7 +233,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-  margin-top: auto;
+  margin: 0 24px 24px 24px;
 }
 
 .purchase-button:hover:not(:disabled) {
@@ -157,7 +267,24 @@
 .empty-state p {
   font-size: 18px;
   color: #718096;
-  margin: 0;
+  margin: 0 0 16px 0;
+}
+
+.clear-filters-button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-filters-button:hover {
+  background: #764ba2;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {

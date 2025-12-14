@@ -126,6 +126,7 @@ function Admin() {
             ) : (
               <div className="sweets-table">
                 <div className="table-header">
+                  <div className="table-cell">Image</div>
                   <div className="table-cell">Name</div>
                   <div className="table-cell">Category</div>
                   <div className="table-cell">Price</div>
@@ -136,6 +137,18 @@ function Admin() {
                 
                 {sweets.map((s) => (
                   <div key={s.id} className="table-row">
+                    <div className="table-cell">
+                      <div className="table-image-container">
+                        <img
+                          src={s.image || "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=100&h=100&fit=crop"}
+                          alt={s.name}
+                          className="table-image"
+                          onError={(e) => {
+                            e.target.src = "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=100&h=100&fit=crop";
+                          }}
+                        />
+                      </div>
+                    </div>
                     <div className="table-cell">{s.name}</div>
                     <div className="table-cell">
                       <span className="category-badge">{s.category}</span>

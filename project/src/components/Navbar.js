@@ -20,25 +20,25 @@ function Navbar() {
         </div>
         
         <div className="navbar-menu">
-          {!isLoggedIn && (
-            <>
+      {!isLoggedIn && (
+        <>
               <Link to="/" className="navbar-link">Login</Link>
               <Link to="/register" className="navbar-link navbar-link-primary">Register</Link>
-            </>
-          )}
+        </>
+      )}
 
-          {isLoggedIn && (
-            <>
+      {isLoggedIn && (
+        <>
               <Link to="/dashboard" className="navbar-link">Dashboard</Link>
 
-              {role === "ADMIN" && (
+          {role === "ADMIN" && (
                 <Link to="/admin" className="navbar-link">Admin</Link>
-              )}
+          )}
 
               <button onClick={handleLogout} className="navbar-button">Logout</button>
-            </>
-          )}
-        </div>
+        </>
+      )}
+    </div>
       </div>
     </nav>
   );
