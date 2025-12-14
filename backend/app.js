@@ -3,11 +3,11 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const sequelize = require("./config/db");
-require("./models/Sweet");
+const sequelize = require("./src/config/db");
+require("./src/models/Sweet");
 
-const authRoutes = require("./routes/authRoutes");
-const sweetRoutes = require("./routes/sweetRoutes");
+const authRoutes = require("./src/routes/authRoutes");
+const sweetRoutes = require("./src/routes/sweetRoutes");
 
 const app = express();
 
