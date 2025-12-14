@@ -52,6 +52,13 @@ function Admin() {
     fetchSweets();
   };
 
+  const deleteSweet = async (id) => {
+    if (window.confirm("Are you sure you want to permanently delete this sweet? This action cannot be undone.")) {
+      await api.delete(`/sweets/${id}`);
+      fetchSweets();
+    }
+  };
+
   return (
     <div className="admin">
       <div className="admin-container">
@@ -201,6 +208,12 @@ function Admin() {
                           Activate
                         </button>
                       )}
+                      <button
+                        className="action-button delete-button"
+                        onClick={() => deleteSweet(s.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}
