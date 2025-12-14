@@ -6,10 +6,15 @@ const router = express.Router();
 
 // GET all active sweets (USER + ADMIN)
 router.get("/", authMiddleware, async (req, res) => {
-    const sweets = await Sweet.findAll({
-        where: { isActive: true },
-    });
-    res.json(sweets);
+    try {
+        const sweets = await Sweet.findAll({
+            where: { isActive: true },
+        });
+        res.json(sweets);
+    } catch (error) {
+        console.error("Get sweets error:", error);
+        res.status(500).json({ message: "Error fetching sweets", error: error.message });
+    }
 });
 
 
@@ -53,62 +58,102 @@ router.post("/", authMiddleware, adminOnly, async (req, res) => {
 
 // PURCHASE sweet
 router.post("/:id/purchase", authMiddleware, async (req, res) => {
-    const sweet = await Sweet.findByPk(req.params.id);
+    try {
+        const sweet = await Sweet.findByPk(req.params.id);
 
-    if (!sweet || !sweet.isActive || sweet.quantity <= 0) {
-        return res.status(400).json({ message: "Out of stock" });
+        if (!sweet) {
+            return res.status(404).json({ message: "Sweet not found" });
+        }
+
+        if (!sweet.isActive || sweet.quantity <= 0) {
+            return res.status(400).json({ message: "Out of stock" });
+        }
+
+        sweet.quantity -= 1;
+        await sweet.save();
+        res.json(sweet);
+    } catch (error) {
+        console.error("Purchase error:", error);
+        res.status(500).json({ message: "Error processing purchase", error: error.message });
     }
-
-    sweet.quantity -= 1;
-    await sweet.save();
-    res.json(sweet);
 });
 
 // SOFT DELETE (ADMIN)
 router.post("/:id/deactivate", authMiddleware, adminOnly, async (req, res) => {
-    const sweet = await Sweet.findByPk(req.params.id);
-    sweet.isActive = false;
-    await sweet.save();
-    res.json({ message: "Sweet deactivated" });
+    try {
+        const sweet = await Sweet.findByPk(req.params.id);
+        if (!sweet) {
+            return res.status(404).json({ message: "Sweet not found" });
+        }
+        sweet.isActive = false;
+        await sweet.save();
+        res.json({ message: "Sweet deactivated" });
+    } catch (error) {
+        console.error("Deactivate error:", error);
+        res.status(500).json({ message: "Error deactivating sweet", error: error.message });
+    }
 });
 
 // RE-ACTIVATE (ADMIN)
 router.post("/:id/activate", authMiddleware, adminOnly, async (req, res) => {
-    const sweet = await Sweet.findByPk(req.params.id);
-    sweet.isActive = true;
-    await sweet.save();
-    res.json({ message: "Sweet activated" });
+    try {
+        const sweet = await Sweet.findByPk(req.params.id);
+        if (!sweet) {
+            return res.status(404).json({ message: "Sweet not found" });
+        }
+        sweet.isActive = true;
+        await sweet.save();
+        res.json({ message: "Sweet activated" });
+    } catch (error) {
+        console.error("Activate error:", error);
+        res.status(500).json({ message: "Error activating sweet", error: error.message });
+    }
 });
 // GET all sweets (ADMIN - active + inactive)
 router.get("/all", authMiddleware, adminOnly, async (req, res) => {
-    const sweets = await Sweet.findAll();
-    res.json(sweets);
+    try {
+        const sweets = await Sweet.findAll();
+        res.json(sweets);
+    } catch (error) {
+        console.error("Get all sweets error:", error);
+        res.status(500).json({ message: "Error fetching sweets", error: error.message });
+    }
 });
 
 // RESTOCK sweet (ADMIN)
 router.post("/:id/restock", authMiddleware, adminOnly, async (req, res) => {
-    const sweet = await Sweet.findByPk(req.params.id);
+    try {
+        const sweet = await Sweet.findByPk(req.params.id);
 
-    if (!sweet) {
-        return res.status(404).json({ message: "Sweet not found" });
+        if (!sweet) {
+            return res.status(404).json({ message: "Sweet not found" });
+        }
+
+        sweet.quantity += 5; // restock by 5
+        await sweet.save();
+
+        res.json(sweet);
+    } catch (error) {
+        console.error("Restock error:", error);
+        res.status(500).json({ message: "Error restocking sweet", error: error.message });
     }
-
-    sweet.quantity += 5; // restock by 5
-    await sweet.save();
-
-    res.json(sweet);
 });
 
 // DELETE sweet permanently (ADMIN)
 router.delete("/:id", authMiddleware, adminOnly, async (req, res) => {
-    const sweet = await Sweet.findByPk(req.params.id);
+    try {
+        const sweet = await Sweet.findByPk(req.params.id);
 
-    if (!sweet) {
-        return res.status(404).json({ message: "Sweet not found" });
+        if (!sweet) {
+            return res.status(404).json({ message: "Sweet not found" });
+        }
+
+        await sweet.destroy();
+        res.json({ message: "Sweet deleted permanently" });
+    } catch (error) {
+        console.error("Delete error:", error);
+        res.status(500).json({ message: "Error deleting sweet", error: error.message });
     }
-
-    await sweet.destroy();
-    res.json({ message: "Sweet deleted permanently" });
 });
 
 

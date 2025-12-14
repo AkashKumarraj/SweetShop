@@ -19,7 +19,8 @@ const authMiddleware = (req, res, next) => {
 };
 
 const adminOnly = (req, res, next) => {
-  if (req.user.role !== "ADMIN") {
+  const userRole = req.user.role ? req.user.role.toUpperCase() : "USER";
+  if (userRole !== "ADMIN") {
     return res.status(403).json({ message: "Admin access only" });
   }
   next();

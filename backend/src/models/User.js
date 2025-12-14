@@ -14,7 +14,14 @@ const User = sequelize.define("User", {
   role: {
     type: DataTypes.STRING,
     defaultValue: "USER",
+    allowNull: false,
+    set(value) {
+      this.setDataValue("role", value ? value.toUpperCase() : "USER");
+    },
   },
+}, {
+  tableName: "users",
+  timestamps: true,
 });
 
 module.exports = User;
