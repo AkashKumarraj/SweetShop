@@ -18,7 +18,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/sweets", sweetRoutes);
 
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
     console.log("Database connected");
 });
 

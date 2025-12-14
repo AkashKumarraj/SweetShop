@@ -19,13 +19,16 @@ const Sweet = sequelize.define("Sweet", {
     allowNull: false,
   },
   image: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: true,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
+}, {
+  tableName: "sweets",
+  timestamps: true,
 });
 
 module.exports = Sweet;
