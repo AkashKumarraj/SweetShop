@@ -95,7 +95,7 @@
   border-radius: 12px;
   font-size: 16px;
   font-weight: 600;
-  cursor: pointer;
+  cursor: pointer !important;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
@@ -195,7 +195,7 @@
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
+  cursor: pointer !important;
   transition: all 0.3s ease;
   white-space: nowrap;
 }

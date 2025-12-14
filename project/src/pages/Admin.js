@@ -143,8 +143,8 @@ function Admin() {
                     <div className="table-cell">₹{s.price}</div>
                     <div className="table-cell">{s.quantity}</div>
                     <div className="table-cell">
-                      <span className={`status-badge ${s.active !== false ? 'active' : 'inactive'}`}>
-                        {s.active !== false ? 'Active' : 'Inactive'}
+                      <span className={`status-badge ${s.active === true ? 'active' : 'inactive'}`}>
+                        {s.active === true ? 'Active' : 'Inactive'}
                       </span>
                     </div>
                     <div className="table-cell actions-cell">
@@ -154,7 +154,7 @@ function Admin() {
                       >
                         Restock
                       </button>
-                      {s.active !== false ? (
+                      {s.active === true ? (
                         <button
                           className="action-button deactivate-button"
                           onClick={() => deactivate(s.id)}
