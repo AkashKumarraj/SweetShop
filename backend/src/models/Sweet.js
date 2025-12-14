@@ -18,6 +18,10 @@ const Sweet = sequelize.define("Sweet", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,

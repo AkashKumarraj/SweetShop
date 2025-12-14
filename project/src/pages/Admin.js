@@ -9,6 +9,7 @@ function Admin() {
     category: "",
     price: "",
     quantity: "",
+    image: "",
   });
 
   const fetchSweets = async () => {
@@ -26,11 +27,13 @@ function Admin() {
 
   const addSweet = async () => {
     await api.post("/sweets", {
-      ...form,
+      name: form.name,
+      category: form.category,
       price: Number(form.price),
       quantity: Number(form.quantity),
+      image: form.image || null,
     });
-    setForm({ name: "", category: "", price: "", quantity: "" });
+    setForm({ name: "", category: "", price: "", quantity: "", image: "" });
     fetchSweets();
   };
 
@@ -108,6 +111,18 @@ function Admin() {
                   onChange={handleChange}
                 />
               </div>
+              
+              <div className="form-group">
+                <label htmlFor="image">Image URL (Optional)</label>
+                <input
+                  id="image"
+                  name="image"
+                  type="url"
+                  placeholder="Enter image URL"
+                  value={form.image}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             
             <button className="add-button" onClick={addSweet}>
@@ -138,16 +153,20 @@ function Admin() {
                 {sweets.map((s) => (
                   <div key={s.id} className="table-row">
                     <div className="table-cell">
-                      <div className="table-image-container">
-                        <img
-                          src={s.image || "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=100&h=100&fit=crop"}
-                          alt={s.name}
-                          className="table-image"
-                          onError={(e) => {
-                            e.target.src = "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=100&h=100&fit=crop";
-                          }}
-                        />
-                      </div>
+                      {s.image ? (
+                        <div className="table-image-container">
+                          <img
+                            src={s.image}
+                            alt={s.name}
+                            className="table-image"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="no-image-placeholder">No Image</div>
+                      )}
                     </div>
                     <div className="table-cell">{s.name}</div>
                     <div className="table-cell">

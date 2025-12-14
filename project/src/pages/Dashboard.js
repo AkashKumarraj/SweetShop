@@ -45,16 +45,6 @@ function Dashboard() {
 
   const categories = ["all", ...new Set(sweets.map((sweet) => sweet.category))];
 
-  const getImageUrl = (image) => {
-    if (image) return image;
-    const defaultImages = [
-      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=300&fit=crop",
-      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
-    ];
-    return defaultImages[Math.floor(Math.random() * defaultImages.length)];
-  };
 
   return (
     <div className="dashboard">
@@ -116,19 +106,21 @@ function Dashboard() {
         <div className="sweets-grid">
           {filteredSweets.map((sweet) => (
             <div className="sweet-card" key={sweet.id}>
-              <div className="sweet-image-container">
-                <img
-                  src={getImageUrl(sweet.image)}
-                  alt={sweet.name}
-                  className="sweet-image"
-                  onError={(e) => {
-                    e.target.src = "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop";
-                  }}
-                />
-                {sweet.quantity === 0 && (
-                  <div className="out-of-stock-overlay">Out of Stock</div>
-                )}
-              </div>
+              {sweet.image && (
+                <div className="sweet-image-container">
+                  <img
+                    src={sweet.image}
+                    alt={sweet.name}
+                    className="sweet-image"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                  {sweet.quantity === 0 && (
+                    <div className="out-of-stock-overlay">Out of Stock</div>
+                  )}
+                </div>
+              )}
               
               <div className="sweet-card-header">
                 <h3>{sweet.name}</h3>

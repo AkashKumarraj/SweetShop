@@ -12,10 +12,10 @@ router.get("/", authMiddleware, async (req, res) => {
     res.json(sweets);
 });
 
-// ADD sweet (ADMIN)
+
 // ADD sweet (ADMIN) — prevent duplicates
 router.post("/", authMiddleware, adminOnly, async (req, res) => {
-    const { name, category, price, quantity } = req.body;
+    const { name, category, price, quantity, image } = req.body;
 
     const existingSweet = await Sweet.findOne({
         where: { name, category },
@@ -35,6 +35,7 @@ router.post("/", authMiddleware, adminOnly, async (req, res) => {
         category,
         price,
         quantity,
+        image: image || null,
     });
 
     res.json(sweet);
